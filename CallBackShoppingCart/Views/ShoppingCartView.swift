@@ -9,10 +9,15 @@ struct ShoppingCartView: View {
         _viewModel = StateObject(wrappedValue: viewModel)
     }
     
-    private let apple = Product(
+    private static let apple = Product(
         id: UUID(),
         name: "Apple",
         price: 1.50
+    )
+    private static let banana = Product(
+        id: UUID(),
+        name: "Banana",
+        price: 0.75
     )
 
     var body: some View {
@@ -57,12 +62,26 @@ struct ShoppingCartView: View {
                 }
             }
             
-           
+            HStack {
+                Text("Subtotal:")
+                    .fontWeight(.semibold)
+
+                Spacer()
+
+                Text(viewModel.subtotal, format: .currency(code: "USD"))
+                    .fontWeight(.semibold)
+            }
             
             // Update shopping cart view
 
-            Button("Add Apple to Cart") {
-                viewModel.add(product: apple)
+            HStack(spacing: 16) {
+                Button("Add Apple") {
+                    viewModel.add(product: Self.apple)
+                }
+
+                Button("Add Banana") {
+                    viewModel.add(product: Self.banana)
+                }
             }
             .disabled(viewModel.isLoading)
 
