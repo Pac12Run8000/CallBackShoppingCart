@@ -4,6 +4,7 @@ import SwiftUI
 struct ShoppingCartView: View {
 
     @StateObject private var viewModel: ShoppingCartViewModel
+    @State private var showClearConfirmation = false
 
     init(viewModel: ShoppingCartViewModel) {
         _viewModel = StateObject(wrappedValue: viewModel)
@@ -97,7 +98,7 @@ struct ShoppingCartView: View {
             .disabled(viewModel.isLoading)
             
             Button("Clear Cart") {
-                viewModel.clearCart()
+                showClearConfirmation = true
             }
             .disabled(viewModel.items.isEmpty || viewModel.isLoading)
 
@@ -111,5 +112,20 @@ struct ShoppingCartView: View {
             }
         }
         .padding()
+        .confirmationDialog(
+            "Clear Shopping Cart?",
+            isPresented: $showClearConfirmation,
+            titleVisibility: .visible
+        ) {
+            Button("Clear Cart", role: .destructive) {
+                viewModel.clearCart()
+            }
+
+            Button("Cancel", role: .cancel) {
+                // Keep the cart unchanged.
+            }
+        } message: {
+            Text("This will remove all products from your cart.")
+        }
     }
 }
