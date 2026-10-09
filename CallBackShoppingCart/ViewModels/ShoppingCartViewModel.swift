@@ -43,4 +43,10 @@ final class ShoppingCartViewModel: ObservableObject {
             }
         }
     }
+    
+    func remove(product: Product) {
+        items.removeAll {
+            $0.product.id == product.id
+        }
+    }
 }

@@ -28,7 +28,7 @@ struct ShoppingCartView: View {
                 let cartItem = viewModel.items[index]
 
                 HStack {
-                    VStack(alignment: .leading) {
+                    VStack(alignment: .leading, spacing: 4) {
                         Text(cartItem.product.name)
                             .font(.headline)
 
@@ -41,18 +41,15 @@ struct ShoppingCartView: View {
 
                     Spacer()
 
-                    Text("Qty: \(cartItem.quantity)")
+                    VStack(alignment: .trailing, spacing: 8) {
+                        Text("Qty: \(cartItem.quantity)")
+
+                        Button("Remove") {
+                            viewModel.remove(product: cartItem.product)
+                        }
+                        .foregroundStyle(.red)
+                    }
                 }
-            }
-            
-            HStack {
-                Text("Subtotal:")
-                    .fontWeight(.semibold)
-
-                Spacer()
-
-                Text(viewModel.subtotal, format: .currency(code: "USD"))
-                    .fontWeight(.semibold)
             }
             
             // Update shopping cart view
