@@ -63,4 +63,18 @@ final class ShoppingCartViewModel: ObservableObject {
             items.remove(at: index)
         }
     }
+    
+    func increaseQuantity(for product: Product) {
+        guard let index = items.firstIndex(where: {
+            $0.product.id == product.id
+        }) else {
+            return
+        }
+
+        items[index].quantity += 1
+    }
+    
+    func clearCart() {
+        items.removeAll()
+    }
 }

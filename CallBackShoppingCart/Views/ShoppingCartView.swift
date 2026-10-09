@@ -59,12 +59,15 @@ struct ShoppingCartView: View {
                                 }
 
                                 Text("Qty: \(cartItem.quantity)")
-                            }
+                                    
 
-                            Button("Remove") {
-                                viewModel.remove(product: cartItem.product)
+                                Button {
+                                    viewModel.increaseQuantity(for: cartItem.product)
+                                } label: {
+                                    Image(systemName: "plus.circle")
+                                }
                             }
-                            .foregroundStyle(.red)
+                            
                         }
                     }
                 }
@@ -92,6 +95,11 @@ struct ShoppingCartView: View {
                 }
             }
             .disabled(viewModel.isLoading)
+            
+            Button("Clear Cart") {
+                viewModel.clearCart()
+            }
+            .disabled(viewModel.items.isEmpty || viewModel.isLoading)
 
             if viewModel.isLoading {
                 ProgressView("Adding to cart...")
