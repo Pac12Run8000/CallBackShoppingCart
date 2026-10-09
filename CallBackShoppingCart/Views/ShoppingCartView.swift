@@ -24,33 +24,40 @@ struct ShoppingCartView: View {
             
             // Update shopping cart view
             
-            ForEach(viewModel.items.indices, id: \.self) { index in
-                let cartItem = viewModel.items[index]
+            if viewModel.items.isEmpty {
+                Text("Your cart is empty.")
+                    .foregroundStyle(.secondary)
+            } else {
+                ForEach(viewModel.items.indices, id: \.self) { index in
+                    let cartItem = viewModel.items[index]
 
-                HStack {
-                    VStack(alignment: .leading, spacing: 4) {
-                        Text(cartItem.product.name)
-                            .font(.headline)
+                    HStack {
+                        VStack(alignment: .leading, spacing: 4) {
+                            Text(cartItem.product.name)
+                                .font(.headline)
 
-                        Text(
-                            cartItem.product.price * Double(cartItem.quantity),
-                            format: .currency(code: "USD")
-                        )
-                        .foregroundStyle(.secondary)
-                    }
-
-                    Spacer()
-
-                    VStack(alignment: .trailing, spacing: 8) {
-                        Text("Qty: \(cartItem.quantity)")
-
-                        Button("Remove") {
-                            viewModel.remove(product: cartItem.product)
+                            Text(
+                                cartItem.product.price * Double(cartItem.quantity),
+                                format: .currency(code: "USD")
+                            )
+                            .foregroundStyle(.secondary)
                         }
-                        .foregroundStyle(.red)
+
+                        Spacer()
+
+                        VStack(alignment: .trailing, spacing: 8) {
+                            Text("Qty: \(cartItem.quantity)")
+
+                            Button("Remove") {
+                                viewModel.remove(product: cartItem.product)
+                            }
+                            .foregroundStyle(.red)
+                        }
                     }
                 }
             }
+            
+           
             
             // Update shopping cart view
 
