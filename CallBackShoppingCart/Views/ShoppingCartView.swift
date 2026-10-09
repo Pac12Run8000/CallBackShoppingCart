@@ -20,7 +20,7 @@ struct ShoppingCartView: View {
             Text("Shopping Cart")
                 .font(.title)
 
-            Text("Items: \(viewModel.items.count)")
+            Text("Items: \(viewModel.totalItemCount)")
             
             // Update shopping cart view
             
@@ -32,14 +32,27 @@ struct ShoppingCartView: View {
                         Text(cartItem.product.name)
                             .font(.headline)
 
-                        Text(cartItem.product.price, format: .currency(code: "USD"))
-                            .foregroundStyle(.secondary)
+                        Text(
+                            cartItem.product.price * Double(cartItem.quantity),
+                            format: .currency(code: "USD")
+                        )
+                        .foregroundStyle(.secondary)
                     }
 
                     Spacer()
 
                     Text("Qty: \(cartItem.quantity)")
                 }
+            }
+            
+            HStack {
+                Text("Subtotal:")
+                    .fontWeight(.semibold)
+
+                Spacer()
+
+                Text(viewModel.subtotal, format: .currency(code: "USD"))
+                    .fontWeight(.semibold)
             }
             
             // Update shopping cart view
