@@ -9,15 +9,11 @@ final class ShoppingCartViewModel: ObservableObject {
     @Published private(set) var errorMessage: String?
     
     var subtotal: Double {
-        items.reduce(0.0) { total, cartItem in
-            total + cartItem.product.price * Double(cartItem.quantity)
-        }
+        return items.reduce(0.0, { $0 + $1.product.price * Double($1.quantity) })
     }
     
     var totalItemCount: Int {
-        items.reduce(0) { total, cartItem in
-            total + cartItem.quantity
-        }
+        return items.reduce(0, { $0 + $1.quantity })
     }
 
     private let repository: CartRepository
