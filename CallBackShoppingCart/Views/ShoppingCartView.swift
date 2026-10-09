@@ -51,7 +51,15 @@ struct ShoppingCartView: View {
                         Spacer()
 
                         VStack(alignment: .trailing, spacing: 8) {
-                            Text("Qty: \(cartItem.quantity)")
+                            HStack(spacing: 12) {
+                                Button {
+                                    viewModel.decreaseQuantity(for: cartItem.product)
+                                } label: {
+                                    Image(systemName: "minus.circle")
+                                }
+
+                                Text("Qty: \(cartItem.quantity)")
+                            }
 
                             Button("Remove") {
                                 viewModel.remove(product: cartItem.product)
