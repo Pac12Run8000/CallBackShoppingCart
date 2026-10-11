@@ -5,7 +5,11 @@ import SwiftUI
 @MainActor
 final class ShoppingCartViewModel: ObservableObject {
 
-    @Published private(set) var items: [CartItem] = []
+    @Published private(set) var items: [CartItem] = [] {
+        didSet {
+            repository.saveCart(items: items)
+        }
+    }
     @Published private(set) var isLoading = false
     @Published private(set) var errorMessage: String?
     @Published private(set) var successMessage: String?
@@ -22,6 +26,7 @@ final class ShoppingCartViewModel: ObservableObject {
 
     init(repository: CartRepository) {
         self.repository = repository
+        self.items = repository.loadCart()
     }
 
     func add(product: Product) {
