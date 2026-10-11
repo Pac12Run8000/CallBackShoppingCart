@@ -110,6 +110,12 @@ struct ShoppingCartView: View {
                 Text(errorMessage)
                     .foregroundStyle(.red)
             }
+            if let successMessage = viewModel.successMessage {
+                Text(successMessage)
+                    .foregroundStyle(.green)
+                    .transition(.opacity)
+            }
+            
         }
         .padding()
         .confirmationDialog(

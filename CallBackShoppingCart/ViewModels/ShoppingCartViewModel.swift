@@ -1,5 +1,6 @@
 import Foundation
 import Combine
+import SwiftUI
 
 @MainActor
 final class ShoppingCartViewModel: ObservableObject {
@@ -7,6 +8,7 @@ final class ShoppingCartViewModel: ObservableObject {
     @Published private(set) var items: [CartItem] = []
     @Published private(set) var isLoading = false
     @Published private(set) var errorMessage: String?
+    @Published private(set) var successMessage: String?
     
     var subtotal: Double {
         return items.reduce(0.0, { $0 + $1.product.price * Double($1.quantity) })
@@ -25,6 +27,7 @@ final class ShoppingCartViewModel: ObservableObject {
     func add(product: Product) {
         isLoading = true
         errorMessage = nil
+        successMessage = nil
 
         repository.addToCart(product: product) { [weak self] result in
             guard let self else { return }
@@ -37,6 +40,19 @@ final class ShoppingCartViewModel: ObservableObject {
                     self.items[index].quantity += cartItem.quantity
                 } else {
                     self.items.append(cartItem)
+                }
+                self.successMessage = "\(cartItem.product.name) added to cart!"
+                let message = self.successMessage
+
+                DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) { [weak self] in
+                    guard let self else { return }
+
+                    if self.successMessage == message {
+                        withAnimation(.easeOut(duration: 0.5)) {
+                            self.successMessage = nil
+                        }
+                        
+                    }
                 }
             case .failure(let error):
                 self.errorMessage = error.localizedDescription
