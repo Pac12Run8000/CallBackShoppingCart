@@ -181,7 +181,7 @@ struct ShoppingCartView: View {
             .navigationDestination(for: ShoppingCartDestination.self) { destination in
                 switch destination {
                 case .payment:
-                    MockPaymentView()
+                    MockPaymentView(items: viewModel.items, subtotal: viewModel.subtotal)
                 }
             }
         }

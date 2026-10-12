@@ -17,6 +17,11 @@ final class ShoppingCartViewModel: ObservableObject {
     @Published private(set) var successMessage: String?
     @Published var navigationPath: [ShoppingCartDestination] = []
     
+    init(repository: CartRepository) {
+        self.repository = repository
+        self.items = repository.loadCart()
+    }
+    
     var subtotal: Double {
         return items.reduce(0.0, { $0 + $1.product.price * Double($1.quantity) })
     }
@@ -32,10 +37,7 @@ final class ShoppingCartViewModel: ObservableObject {
 
     private let repository: CartRepository
 
-    init(repository: CartRepository) {
-        self.repository = repository
-        self.items = repository.loadCart()
-    }
+    
     
     func navigateToPayment() {
         navigationPath.append(.payment)

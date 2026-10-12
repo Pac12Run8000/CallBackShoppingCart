@@ -1,6 +1,9 @@
 import SwiftUI
 
 struct MockPaymentView: View {
+    
+    let items: [CartItem]
+    let subtotal: Double
 
     var body: some View {
         VStack(spacing: 24) {
@@ -15,6 +18,38 @@ struct MockPaymentView: View {
             Text("This is a simulated payment screen.")
                 .font(.subheadline)
                 .foregroundStyle(.secondary)
+            
+            VStack(spacing: 16) {
+                Text("Order Summary")
+                    .font(.headline)
+
+                ForEach(items, id: \.product.id) { item in
+                    HStack {
+                        Text(item.product.name)
+
+                        Spacer()
+
+                        Text("Qty: \(item.quantity)")
+                    }
+                }
+
+                Divider()
+
+                HStack {
+                    Text("Subtotal:")
+                        .fontWeight(.semibold)
+
+                    Spacer()
+
+                    Text(subtotal, format: .currency(code: "USD"))
+                        .fontWeight(.bold)
+                }
+            }
+            .padding(16)
+            .background(
+                Color(.secondarySystemBackground),
+                in: RoundedRectangle(cornerRadius: 12)
+            )
 
             Text("No real payment will be processed.")
                 .font(.caption)
@@ -24,11 +59,5 @@ struct MockPaymentView: View {
         .padding()
         .navigationTitle("Payment")
         .navigationBarTitleDisplayMode(.inline)
-    }
-}
-
-#Preview {
-    NavigationStack {
-        MockPaymentView()
     }
 }
