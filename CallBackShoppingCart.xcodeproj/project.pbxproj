@@ -6,6 +6,10 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		097A2822307C7B01006F5308 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 097A2821307C7AF1006F5308 /* README.md */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXContainerItemProxy section */
 		09B59D5A306B682F0099DB66 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -24,6 +28,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		097A2821307C7AF1006F5308 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		09B59D4C306B68290099DB66 /* CallBackShoppingCart.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CallBackShoppingCart.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		09B59D59306B682F0099DB66 /* CallBackShoppingCartTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CallBackShoppingCartTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		09B59D63306B682F0099DB66 /* CallBackShoppingCartUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CallBackShoppingCartUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -75,6 +80,7 @@
 		09B59D43306B68290099DB66 = {
 			isa = PBXGroup;
 			children = (
+				097A2821307C7AF1006F5308 /* README.md */,
 				09B59D4E306B68290099DB66 /* CallBackShoppingCart */,
 				09B59D5C306B682F0099DB66 /* CallBackShoppingCartTests */,
 				09B59D66306B682F0099DB66 /* CallBackShoppingCartUITests */,
@@ -212,6 +218,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				097A2822307C7B01006F5308 /* README.md in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
