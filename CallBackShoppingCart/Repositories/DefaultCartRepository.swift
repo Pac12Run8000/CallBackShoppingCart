@@ -4,6 +4,10 @@ final class DefaultCartRepository: CartRepository {
 
     private let service: CartServiceProtocol
     private let cartStorageKey = "savedShoppingCart"
+    
+    var products: [Product] {
+        return service.products
+    }
 
     init(service: CartServiceProtocol) {
         self.service = service

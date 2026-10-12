@@ -10,6 +10,8 @@ final class ShoppingCartViewModel: ObservableObject {
             repository.saveCart(items: items)
         }
     }
+    
+    
     @Published private(set) var isLoading = false
     @Published private(set) var errorMessage: String?
     @Published private(set) var successMessage: String?
@@ -22,6 +24,11 @@ final class ShoppingCartViewModel: ObservableObject {
     var totalItemCount: Int {
         return items.reduce(0, { $0 + $1.quantity })
     }
+    
+    var products: [Product] {
+        return repository.products
+    }
+    
 
     private let repository: CartRepository
 

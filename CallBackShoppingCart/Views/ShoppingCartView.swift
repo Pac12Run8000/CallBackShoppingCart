@@ -10,17 +10,6 @@ struct ShoppingCartView: View {
         _viewModel = StateObject(wrappedValue: viewModel)
     }
     
-    private static let apple = Product(
-        id: UUID(uuidString: "00000000-0000-0000-0000-000000000001")!,
-        name: "Apple",
-        price: 1.50
-    )
-
-    private static let banana = Product(
-        id: UUID(uuidString: "00000000-0000-0000-0000-000000000002")!,
-        name: "Banana",
-        price: 0.75
-    )
 
     var body: some View {
         NavigationStack(path: $viewModel.navigationPath) {
@@ -47,6 +36,7 @@ struct ShoppingCartView: View {
                                 .foregroundStyle(.blue)
                         }
                         .accessibilityLabel("Go to payment")
+                        .disabled(viewModel.items.isEmpty)
                     }
                     
                     // Update shopping cart view
@@ -135,23 +125,16 @@ struct ShoppingCartView: View {
                     // Update shopping cart view
                     
                     HStack(spacing: 12) {
-                        Button("Add Apple") {
-                            viewModel.add(product: Self.apple)
+                        ForEach(viewModel.products, id: \.id) { product in
+                            Button("Add \(product.name)") {
+                                viewModel.add(product: product)
+                            }
+                            .fontWeight(.semibold)
+                            .frame(maxWidth: .infinity)
+                            .padding(.vertical, 14)
+                            .background(.blue, in: RoundedRectangle(cornerRadius: 12))
+                            .foregroundStyle(.white)
                         }
-                        .fontWeight(.semibold)
-                        .frame(maxWidth: .infinity)
-                        .padding(.vertical, 14)
-                        .background(.blue, in: RoundedRectangle(cornerRadius: 12))
-                        .foregroundStyle(.white)
-                        
-                        Button("Add Banana") {
-                            viewModel.add(product: Self.banana)
-                        }
-                        .fontWeight(.semibold)
-                        .frame(maxWidth: .infinity)
-                        .padding(.vertical, 14)
-                        .background(.blue, in: RoundedRectangle(cornerRadius: 12))
-                        .foregroundStyle(.white)
                     }
                     .disabled(viewModel.isLoading)
                     
