@@ -66,10 +66,17 @@ struct ShoppingCartView: View {
                                     Text(cartItem.product.name)
                                         .font(.headline)
                                     
-                                    Text(
-                                        cartItem.product.price * Double(cartItem.quantity),
-                                        format: .currency(code: "USD")
-                                    )
+                                    VStack(alignment: .leading, spacing: 4) {
+                                        Text(
+                                            "Unit Price: \(cartItem.product.price.formatted(.currency(code: "USD")))"
+                                        )
+
+                                        Text(
+                                            "Line Total: \((cartItem.product.price * Double(cartItem.quantity)).formatted(.currency(code: "USD")))"
+                                        )
+                                        .fontWeight(.semibold)
+                                    }
+                                    .font(.subheadline)
                                     .foregroundStyle(.secondary)
                                 }
                                 
